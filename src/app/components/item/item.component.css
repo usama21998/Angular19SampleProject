@@ -1,0 +1,67 @@
+.table {
+    width: 600px !important;
+}
+
+.mat-table .mat-header-row {
+    height: 40px;
+}
+
+.mat-table .mat-row {
+    height: 40px;
+}
+
+.mat-table .mat-cell {
+    padding: 10px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+
+tr.mat-row,
+tr.mat-footer-row {
+    height: 36px;
+}
+
+.tableBox {
+    border-width: 1px;
+    border-radius: 12px;
+    width: 100% !important;
+    overflow: auto;
+}
+
+.tableHeader {
+    font-weight: 800 !important;
+    font-size: 18px !important;
+    color: #444444 !important;
+    padding-right: 20px !important;
+}
+
+.actionIcon {
+    size: 20px;
+}
+
+.mat-icon {
+    font-size: 16px !important;
+    height: auto !important;
+}
+
+.iconBtn {
+    padding: 0;
+    min-width: 0;
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    line-height: 0px;
+    border-radius: 100%;
+    background-color: transparent;
+    border-width: 0px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+td {
+    font-size: 16px;
+    place-items: center;
+}
