@@ -5,17 +5,14 @@ import { catchError, retry, tap } from 'rxjs/operators';
 
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class RestService {
 
-    // private marlinPreviousUrl = environment.baseUrlForPreviousMarlin;
 
-    private baseUrlApi = "baseUrl";
+    private baseUrlApi = "https://67af26cd9e85da2f020fb2d4.mockapi.io/mockapi/";
     constructor(private http: HttpClient) {
     }
-
-
 
     public get = (url: String) => {
         console.log(this.baseUrlApi + url);

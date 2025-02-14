@@ -18,5 +18,5 @@ import { AuthInterceptor } from './services/auth.interceptor';
   ],
 })
 export class AppComponent {
-  title = 'Angular19SampleProject';
+
 }
