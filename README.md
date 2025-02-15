@@ -4,7 +4,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ## Run Locally
 
-To start a locally, get a clone first, then:
+To start locally, get a clone first, then:
 
 ```bash
 npm install --force
