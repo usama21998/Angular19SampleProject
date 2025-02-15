@@ -7,6 +7,8 @@ import { Item } from '../../models/item';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { title } from 'process';
+import { NotificationService } from '../../services/toastr.service';
 @Component({
     selector: 'item',
     templateUrl: './item.component.html',
@@ -32,11 +34,12 @@ export class ItemComponent {
         //     description: "Description of Item 3"
         // }
     ]
-
+    selectedItemId: any = null;
     public myForm: FormGroup<any>;
 
     isEditing: boolean = false;
-    constructor(private service: ListingService, private fb: FormBuilder) {
+
+    constructor(private service: ListingService, private fb: FormBuilder, private notification: NotificationService) {
         this.dataSource = new MatTableDataSource<any>();
         this.dataSource.data = this.itemList;
 
@@ -52,39 +55,61 @@ export class ItemComponent {
 
     getItems() {
         this.service.getAllItems().subscribe((res: any) => {
+            res = res.sort((a: any, b: any) => b.id - a.id);
             this.dataSource.data = res;
+        }, (error) => {
+            this.notification.showError('Something went wrong, Please try again later');
         });
     }
 
     performAction(action: string, item: any) {
-        debugger
-        console.log('Action:', action, 'Item:', item);
-
         if (action === 'delete') {
             this.service.deleteItem(item.id).subscribe((res: any) => {
+                this.notification.showSuccess('Item deleted successfully');
                 this.dataSource.data = this.dataSource.data.filter(a => a.id !== res.id);
-                // this.getItems();
+            }, (error) => {
+                this.notification.showError('Something went wrong, Please try again later');
             });
         }
         else if (action === 'edit') {
             this.isEditing = true;
             this.myForm.patchValue(item);
+            this.selectedItemId = item.id;
         }
     }
 
     onSubmit(isValid: boolean, value: any) {
-        debugger
         if (!isValid) {
+            this.myForm.markAllAsTouched();
             return;
         }
-        this.service.updateItem(value).subscribe((res: any) => {
-            this.getItems();
-        });
+        if (this.isEditing) {
+            let data = value;
+            data.id = this.selectedItemId;
+            this.service.updateItem(data).subscribe((res: any) => {
+                this.notification.showSuccess('Item updated successfully');
+                this.getItems();
+                this.onClear();
+            }, (error) => {
+                this.notification.showError('Something went wrong, Please try again later');
+            });
+        }
+        else {
+            this.service.addItems(value).subscribe((res: any) => {
+                this.dataSource.data = [res, ...this.dataSource.data];
+                this.notification.showSuccess('Item added successfully');
+                this.onClear();
+            }, (error) => {
+                this.notification.showError('Something went wrong, Please try again later');
+            });
+        }
+
     }
 
     onClear() {
         this.myForm.reset();
         this.isEditing = false;
+        this.selectedItemId = null;
     }
 
     formTouchedDirtyRequired(form: any, formField: string) {

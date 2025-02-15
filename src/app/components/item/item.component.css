@@ -22,9 +22,9 @@ tr.mat-row {
 
 .tableBox {
     border-width: 1px;
-    border-radius: 12px;
+    border-radius: 6px;
     width: 100% !important;
-    min-width: 600px;
+    min-width: 100%;
     overflow: auto;
     height: 400px
 }
