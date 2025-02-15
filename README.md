@@ -6,7 +6,10 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 To start a locally, get a clone first, then:
 
+```bash
 npm install --force
+```
+
 
 
 ## Development server
